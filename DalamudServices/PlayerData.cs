@@ -33,6 +33,7 @@ public static unsafe class PlayerData
     public static BattleChara*  BattleChara => Control.Instance()->LocalPlayer;
     public static nint Address => (nint)BattleChara;
     public static bool Available => Control.Instance()->LocalPlayer is not null;
+    public static bool Targetable => Object is not null && Object->GetIsTargetable();
     public static bool Interactable => Available && Object->GetIsTargetable();
 
     // Info about local player.

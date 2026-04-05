@@ -117,12 +117,18 @@ public class HybridSaveServiceBase<T> where T : IConfigFileProvider
 
         if (uniquePerAccount && !FileNames.HasValidProfileConfigs)
         {
-            Svc.Log.Warning($"[SaveService] UID is null for {configPath}. Not saving.");
+            // Svc.Log.Warning($"[SaveService] UID is null for {configPath}. Not saving.");
             return;
         }
 
+        // This should be handled by the config file provider, not the saver.
+        // We dont want to enforce directory creation if it does not exist.
         var directory = Path.GetDirectoryName(configPath)!;
-        Directory.CreateDirectory(directory);
+        if (!Directory.Exists(directory))
+        {
+            Svc.Log.Warning($"[SaveService] Directory did not exist: {directory}. Ensure your fileProvider inheriting this initializes your folders!");
+            return;
+        }
 
         var antiCorruptionPath = $"{configPath}.new";
         try

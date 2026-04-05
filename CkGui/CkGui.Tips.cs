@@ -42,7 +42,7 @@ public static partial class CkGui
     /// <inheritdoc cref="AttachTooltip(string?, HFlags)"/>"
     public static void AttachTooltip(string? text, bool disabled, HFlags hoverFlags = TipHoverFlags)
     {
-        if (!disabled && !ShowTooltip(text, hoverFlags))
+        if (!disabled && ShowTooltip(text, hoverFlags))
             ToolTipInternal(text!);
     }
 
